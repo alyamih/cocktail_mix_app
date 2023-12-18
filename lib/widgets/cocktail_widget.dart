@@ -66,7 +66,7 @@ class CocktailWidget extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    getStars(),
+                    getStars(cocktail: cocktail),
                     Container(
                       width: 80,
                       height: 40,
@@ -84,28 +84,39 @@ class CocktailWidget extends StatelessWidget {
   }
 }
 
-Widget getStars() {
+Widget getStars({required Cocktail cocktail}) {
   List<Widget> list = [];
-  for (var i = 0; i < 4; i++) {
+  var stringDouble = cocktail.rating!.toStringAsFixed(1);
+  var second = stringDouble.split('.');
+  final List<int> newList = second.map((e) => int.parse(e)).toList();
+  for (var i = 0; i < newList[0]; i++) {
     list.add(Padding(
       padding: const EdgeInsets.only(right: 4),
       child: Image.asset('assets/icons/full_star.png'),
     ));
   }
-  list.add(Padding(
-    padding: const EdgeInsets.only(right: 16),
-    child: Image.asset('assets/icons/half_star.png'),
-  ));
+
+  if (newList[0] == 4 && newList[1] != 0) {
+    list.add(Image.asset('assets/icons/half_star.png'));
+  } else if (newList[0] == 4 && newList[1] == 0) {
+    list.add(Image.asset('assets/icons/empty_star.png'));
+  } else if (newList[0] == 3) {
+    list.add(Image.asset('assets/icons/half_star.png'));
+    list.add(Image.asset('assets/icons/empty_star.png'));
+  }
 
   return Row(
     children: [
       ...list,
-      const Text('4.5',
-          style: TextStyle(
-              fontFamily: 'Roboto',
-              fontWeight: FontWeight.w500,
-              color: Colors.white,
-              fontSize: 16)),
+      Padding(
+        padding: const EdgeInsets.only(left: 16),
+        child: Text(cocktail.rating!.toStringAsFixed(1),
+            style: const TextStyle(
+                fontFamily: 'Roboto',
+                fontWeight: FontWeight.w500,
+                color: Colors.white,
+                fontSize: 16)),
+      ),
     ],
   );
 }

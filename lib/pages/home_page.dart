@@ -857,6 +857,7 @@ class _HomePageState extends State<HomePage> {
   Widget getCocktails({required List<Cocktail> cocktailList}) {
     List<Widget> list = [];
     for (var cocktail in cocktailList) {
+      cocktail.rating = randomDouble(3.8, 4.9);
       list.add(InkWell(
         onTap: () {
           Navigator.of(context).push(
@@ -885,6 +886,10 @@ class _HomePageState extends State<HomePage> {
     return Column(
       children: list,
     );
+  }
+
+  double randomDouble(double min, double max) {
+    return (Random().nextDouble() * (max - min) + min);
   }
 
   Widget getHistoryItems() {

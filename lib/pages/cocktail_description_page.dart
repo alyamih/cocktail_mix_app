@@ -110,7 +110,7 @@ class _CocktailDescriptionPageState extends State<CocktailDescriptionPage> {
                     child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          getStars(),
+                          getStars(cocktail: widget.cocktail),
                           Row(
                             children: [
                               InkWell(

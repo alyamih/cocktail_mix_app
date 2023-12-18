@@ -8,6 +8,7 @@ class Cocktail {
   String? photo;
   bool? isLiked;
   DateTime? date;
+  double? rating;
 
   Cocktail(
       {this.name,
@@ -16,16 +17,18 @@ class Cocktail {
       this.description2,
       this.photo,
       this.isLiked,
-      this.date});
+      this.date,
+      this.rating});
   factory Cocktail.fromJson(Map<String, dynamic> parsedJson) {
     return Cocktail(
-        name: parsedJson['name'] ?? "",
-        description1: parsedJson['description1'] ?? "",
-        description2: parsedJson['description2'] ?? "",
-        compound: parsedJson['compound'] ?? "",
-        photo: parsedJson['photo'] ?? "",
-        isLiked: parsedJson['isLiked'],
-        date: DateTime.tryParse(parsedJson['date']));
+      name: parsedJson['name'] ?? "",
+      description1: parsedJson['description1'] ?? "",
+      description2: parsedJson['description2'] ?? "",
+      compound: parsedJson['compound'] ?? "",
+      photo: parsedJson['photo'] ?? "",
+      isLiked: parsedJson['isLiked'],
+      date: DateTime.tryParse(parsedJson['date']),
+    );
   }
 
   Map<String, dynamic> toJson() {
